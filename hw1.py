@@ -3,12 +3,16 @@ import sys
 import shutil
 import re
 from pathlib import Path
+
+
 def normalize(title):
     translit = str.maketrans("абвгдеёзийклмнопрстуфхъыьэАБВГДЕЁЗИЙКЛМНОПРСТУФХЧШЩЪЫЬЭ",
                              "abvgdeezijklmnoprstufh'y'eABVGDEeZIJKLMNOPRSTUFh'Y'E")
     title = title.translate(translit)
     title = re.sub(r'[^a-zA-Z0-9]', '_', title)
     return title
+
+
 def process_folder(folder_path):
     for root, dirs, files in os.walk(folder_path):
         for file in files:
