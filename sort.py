@@ -3,16 +3,12 @@ import sys
 import shutil
 import re
 from pathlib import Path
-
-
 def normalize(name):
     translit = str.maketrans("абвгдеёзийклмнопрстуфхъыьэАБВГДЕЁЗИЙКЛМНОПРСТУФХЧШЩЪЫЬЭ",
                              "abvgdeezijklmnoprstufh'y'eABVGDEeZIJKLMNOPRSTUFh'Y'E")
     name = name.translate(translit)
     name = re.sub(r'[^a-zA-Z0-9]', '_', name)
     return name
-
-
 def process_folder(folder_path):
     for root, dirs, files in os.walk(folder_path):
         for file in files:
@@ -38,8 +34,6 @@ def process_folder(folder_path):
             new_file_name = normalize(file.split('.')[0]) + '.' + file_extension
             new_file_path = os.path.join(target_folder_path, new_file_name)
             shutil.move(file_path, new_file_path)
-
-
 def main():
     if len(sys.argv) != 2:
         print("Usage: python sort.py <folder_path>")
@@ -48,5 +42,6 @@ def main():
     if not os.path.exists(folder_path):
         print(f"Folder '{folder_path}' doesn't exist.")
         sys.exit(1)
-if __name__ == '__main__':
+    process_folder(folder_path)
+if __name__ == "__main__":
     main()
